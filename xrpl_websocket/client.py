@@ -20,7 +20,7 @@ class Client(Thread):
     def __init__(self, server=None, timeout=None, log_level=None, *args, **kwargs):
         """
         Args:
-            url: rippled node url.
+            server: rippled node url.
             timeout: connection timeout seconds
             log_level: loggin level
             on_open: callable object which is called at opening websocket.
