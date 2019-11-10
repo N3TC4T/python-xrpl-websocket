@@ -15,17 +15,16 @@ from .exceptions import ResponseFormatError, TimeoutError
 class Client(Thread):
     def __init__(self, server=None, timeout=None, log_level=None, *args, **kwargs):
         """
-        Args:
-            url: rippled node url.
-            timeout: connection timeout seconds
-            log_level: loggin level
-            on_open: callable object which is called at opening websocket.
-            on_reconnect: callable object which is called at reconnecting
-            on_error: callable object which is called when we get error.
-            on_close: callable object which is called when closed the connection.
-            on_transaction: callback object which is called when we recieve transacion
-            on_ledger: callback object which is called when we recieve ledger close
-            on_validation: -
+        url: rippled node url.
+        timeout: connection timeout seconds
+        log_level: loggin level
+        on_open: callable object which is called at opening websocket.
+        on_reconnect: callable object which is called at reconnecting
+        on_error: callable object which is called when we get error.
+        on_close: callable object which is called when closed the connection.
+        on_transaction: callback object which is called when we recieve transacion
+        on_ledger: callback object which is called when we recieve ledger close
+        on_validation: -
         """
 
         # assing any callback method
@@ -82,7 +81,9 @@ class Client(Thread):
         self.daemon = False
 
     def connect(self, nowait=True):
-        """Simulate self.start(), run the main thread
+        """
+        Simulate self.start(), run the main thread
+
         :return:
         """
         self.start()
@@ -91,7 +92,9 @@ class Client(Thread):
             return self.connected.wait()
 
     def disconnect(self):
-        """Disconnects from the websocket connection and joins the Thread.
+        """
+        Disconnects from the websocket connection and joins the Thread.
+
         :return:
         """
         self.log.debug("Disconnecting from API..")
@@ -106,7 +109,9 @@ class Client(Thread):
         self.join(timeout=1)
 
     def reconnect(self):
-        """Issues a reconnection by setting the reconnect_required event.
+        """
+        Issues a reconnection by setting the reconnect_required event.
+
         :return:
         """
         # Reconnect attempt at self.reconnect_interval
@@ -117,7 +122,9 @@ class Client(Thread):
             self.socket.close()
 
     def _connect(self):
-        """Creates a websocket connection.
+        """
+        Creates a websocket connection.
+
         :return:
         """
         self.log.debug("Initializing Connection..")
@@ -145,14 +152,18 @@ class Client(Thread):
                 self.socket.run_forever()
 
     def run(self):
-        """Main method of Thread.
+        """
+        Main method of Thread.
+
         :return:
         """
         self.log.debug("Starting up..")
         self._connect()
 
     def _on_message(self, message):
-        """Handles and passes received data to the appropriate handlers.
+        """
+        Handles and passes received data to the appropriate handlers.
+
         :return:
         """
 
@@ -208,14 +219,18 @@ class Client(Thread):
         self._callback('on_error', error)
 
     def _subscribe_ledger(self):
-        """Subscribe to the ledger close after success connect.
+        """
+        Subscribe to the ledger close after success connect.
+
         :return:
         """
         self.log.debug("Subscribe to ledger changes...")
         self.socket.send(json.dumps(dict(command='subscribe', id=1, streams=['ledger'])))
 
     def _stop_timers(self):
-        """Stops ping, pong and connection timers.
+        """
+        Stops ping, pong and connection timers.
+
         :return:
         """
         if self.ping_timer:
@@ -229,7 +244,9 @@ class Client(Thread):
         self.log.debug("Timers stopped.")
 
     def _start_timers(self):
-        """Resets and starts timers for API data and connection.
+        """
+        Resets and starts timers for API data and connection.
+
         :return:
         """
         self.log.debug("Resetting timers..")
@@ -245,7 +262,9 @@ class Client(Thread):
         self.connection_timer.start()
 
     def send_ping(self):
-        """Sends a ping message to the API and starts pong timers.
+        """
+        Sends a ping message to the API and starts pong timers.
+
         :return:
         """
         self.log.debug("Sending ping to API..")
@@ -254,8 +273,10 @@ class Client(Thread):
         self.pong_timer.start()
 
     def _check_pong(self):
-        """Checks if a Pong message was received.
-        :return:
+        """
+        Checks if a Pong message was received.
+
+       :return:
         """
         self.pong_timer.cancel()
         if self.pong_received:
@@ -268,7 +289,9 @@ class Client(Thread):
             self.reconnect()
 
     def send(self, payload=None, **kwargs):
-        """Sends the given Payload to the API via the websocket connection.
+        """
+        Sends the given Payload to the API via the websocket connection.
+
         :param payload:
         :param kwargs: payload parameters as key=value pairs
         :return:
@@ -303,30 +326,38 @@ class Client(Thread):
                 raise TimeoutError('timeout on sending payload!')
 
     def _connection_timed_out(self):
-        """Issues a reconnection if the connection timed out.
-        :return:
+        """
+        Issues a reconnection if the connection timed out.
+
+       :return:
         """
         self.log.debug("Timeout, Issuing reconnect..")
         self.reconnect()
 
     def _pause(self):
-        """Pauses the connection.
+        """
+        Pauses the connection.
+
         :return:
         """
         self.log.debug("Setting paused() Flag!")
         self.paused.set()
 
     def _unpause(self):
-        """Unpauses the connection.
+        """
+        Unpauses the connection.
         Send a message up to client that he should re-subscribe to all
         channels.
+
         :return:
         """
         self.log.debug("Clearing paused() Flag!")
         self.paused.clear()
 
     def _pong_handler(self):
-        """Handle a pong response.
+        """
+        Handle a pong response.
+
         :return:
         """
         # We received a Pong response to our Ping!
@@ -334,8 +365,10 @@ class Client(Thread):
         self.pong_received = True
 
     def _data_handler(self, data, ts):
-        """Distributes system messages to the appropriate handler.
+        """
+        Distributes system messages to the appropriate handler.
         System messages include everything that arrives as a dict,
+
         :param data:
         :param ts:
         :return:
