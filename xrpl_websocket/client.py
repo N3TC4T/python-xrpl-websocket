@@ -14,6 +14,18 @@ from .exceptions import ResponseFormatError, TimeoutError
 
 class Client(Thread):
     def __init__(self, server=None, timeout=None, log_level=None, *args, **kwargs):
+        """
+        url: rippled node url.
+        timeout: connection timeout seconds
+        log_level: loggin level
+        on_open: callable object which is called at opening websocket.
+        on_reconnect: callable object which is called at reconnecting
+        on_error: callable object which is called when we get error.
+        on_close: callable object which is called when closed the connection.
+        on_transaction: callback object which is called when we recieve transacion
+        on_ledger: callback object which is called when we recieve ledger close
+        on_validation: -
+        """
 
         # assing any callback method
         available_callbacks = [
@@ -175,7 +187,7 @@ class Client(Thread):
         self.log.info("Connection opened")
         self.connected.set()
         self.send_ping()
-        self.subscribe_ledger()
+        self._subscribe_ledger()
         self._start_timers()
         if self.reconnect_required.is_set():
             self.log.info("Connection reconnected.")
@@ -194,7 +206,7 @@ class Client(Thread):
 
         self._callback('on_error', error)
 
-    def subscribe_ledger(self):
+    def _subscribe_ledger(self):
         """Subscribe to the ledger close after success connect.
         :return:
         """
