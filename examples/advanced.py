@@ -1,11 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
-import sys
 import json
 import logging
-from os import path
-
-sys.path.append(path.join(path.dirname(__file__), '..'))
 
 from xrpl_websocket import Client
 
