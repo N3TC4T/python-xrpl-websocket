@@ -4,9 +4,11 @@ import os
 from setuptools import setup, find_packages
 
 
-def read(fname):
-    return open(os.path.join(os.path.dirname(__file__), fname)).read()
-
+# read the contents of README file
+from os import path
+this_directory = path.abspath(path.dirname(__file__))
+with open(path.join(this_directory, 'README.rst'), encoding='utf-8') as f:
+    long_description = f.read()
 
 VERSION = "0.1.0"
 NAME = "xrpl_websocket"
@@ -20,12 +22,11 @@ setup(
     name=NAME,
     version=VERSION,
     description="XRL Websocket Client",
-    long_description=read('README.rst'),
-    long_description_content_type='text/x-rst',
-    author='N3TC4T',
-    author_email='netcat.av@gmail.com',
+    long_description=long_description,
+    author="N3TC4T",
+    author_email="netcat.av@gmail.com",
     url="https://github.com/N3TC4T/python-xrpl-websocket",
-    license='Apache2',
+    license="Apache2",
     packages=find_packages(exclude=['tests*']),
     zip_safe=True,
     python_requires='>=2.6, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*',

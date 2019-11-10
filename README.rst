@@ -1,11 +1,15 @@
-XRPL Websocket
-============
 
+XRPL Websocket
+==============
 
 .. image:: https://readthedocs.org/projects/xrpl-websocket/badge/?version=latest
-:target: https://xrpl-websocket.readthedocs.io/en/latest/?badge=latest
-:alt: Documentation Status
-=================
+    :target: https://xrpl-websocket.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
+
+.. image:: https://badge.fury.io/py/xrpl-websocket.svg
+    :target: https://badge.fury.io/py/xrpl-websocket
+
+================
       
 Websocket client for rippled with reconnecting feature, support both python 2 and 3
 
@@ -22,7 +26,7 @@ Examples
 ========
 
 Short-lived connection
----------------------
+----------------------
 Simple example to send a payload and wait for response
 
 .. code:: python
