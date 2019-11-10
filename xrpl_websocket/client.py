@@ -13,6 +13,10 @@ import websocket
 from .exceptions import ResponseFormatError, TimeoutError
 
 class Client(Thread):
+    """
+    Higher level of APIs are provided.
+    The interface is like JavaScript WebSocket object.
+    """
     def __init__(self, server=None, timeout=None, log_level=None, *args, **kwargs):
         """
         url: rippled node url.
