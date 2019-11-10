@@ -1,11 +1,12 @@
 XRPL Websocket
+============
+
 
 .. image:: https://readthedocs.org/projects/xrpl-websocket/badge/?version=latest
 :target: https://xrpl-websocket.readthedocs.io/en/latest/?badge=latest
 :alt: Documentation Status
-      
 =================
-
+      
 Websocket client for rippled with reconnecting feature, support both python 2 and 3
 
 Installation
