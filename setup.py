@@ -7,10 +7,10 @@ from setuptools import setup, find_packages
 # read the contents of README file
 from os import path
 this_directory = path.abspath(path.dirname(__file__))
-with open(path.join(this_directory, 'README.rst'), encoding='utf-8') as f:
+with open(path.join(this_directory, 'README.rst')) as f:
     long_description = f.read()
 
-VERSION = "0.1.0"
+VERSION = "0.1.0.rc0"
 NAME = "xrpl_websocket"
 
 install_requires = [
