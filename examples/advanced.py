@@ -9,7 +9,7 @@ class Example(Client):
     def __init__(self):
         super(self.__class__, self).__init__(
             log_level=logging.ERROR,
-            server="wss://rippled.xrptipbot.com"
+            server="wss://xrpl.ws"
         )
 
         # connect to the websocket

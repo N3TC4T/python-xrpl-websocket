@@ -61,7 +61,7 @@ You can also write your own class for the connection, if you want to handle the 
         def __init__(self):
             super(self.__class__, self).__init__(
                 log_level=logging.ERROR,
-                server="wss://rippled.xrptipbot.com"
+                server="wss://xrpl.ws"
             )
 
             # connect to the websocket
