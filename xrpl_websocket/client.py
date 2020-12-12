@@ -29,13 +29,15 @@ class Client(Thread):
             on_close: callable object which is called when closed the connection.
             on_transaction: callback object which is called when we recieve transacion
             on_ledger: callback object which is called when we recieve ledger close
-            on_validation: -
+            on_validation: callback object by the validations stream when the server receives a validation message
+            on_manifest: callback object sent by the manifests stream when the server receives a manifest.
         """
 
         # assing any callback method
         available_callbacks = [
             'on_open','on_reconnect', 'on_close','on_error',
-            'on_transaction', 'on_validation', 'on_ledger'
+            'on_transaction', 'on_validation', 'on_ledger',
+            'on_manifest'
        ]
 
         for key,value in kwargs.items():
@@ -43,7 +45,7 @@ class Client(Thread):
                 setattr(self, key, value)
 
         self.socket = None
-        self.server = server if server else 'wss://s1.ripple.com'
+        self.server = server if server else 'wss://xrpl.ws'
         self.responseEvents = dict()
         self.q = Queue()
 
@@ -396,6 +398,8 @@ class Client(Thread):
             self._callback('on_transaction', data)
         elif event == 'validationReceived':
             self._callback('on_validation', data)
+        elif event == 'manifestReceived':
+            self._callback('on_manifest', data)
         elif not event or data.get('error'):
             # Error handling
             # Todo: Should be handle the error
