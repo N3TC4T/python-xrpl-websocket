@@ -1,2 +1,2 @@
-websocket_client==0.54.0
+websocket_client==0.56.0
 wsaccel

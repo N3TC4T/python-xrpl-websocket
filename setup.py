@@ -10,11 +10,11 @@ this_directory = path.abspath(path.dirname(__file__))
 with open(path.join(this_directory, 'README.rst')) as f:
     long_description = f.read()
 
-VERSION = "0.1.0.rc0"
+VERSION = "0.1.0.rc1"
 NAME = "xrpl_websocket"
 
 install_requires = [
-    'websocket-client==0.54.0',
+    'websocket-client==0.56.0',
     'wsaccel'
 ]
 
