@@ -9,21 +9,20 @@ class Example(Client):
     def __init__(self):
         super(self.__class__, self).__init__(
             log_level=logging.ERROR,
-            server="wss://rippled.xrptipbot.com"
+            server="wss://xrpl.ws"
         )
 
-        # connect to the websocket
+        # connect to the endpoint
         self.connect()
-
 
     def on_transaction(self, data):
         print(json.dumps(data, indent = 4))
 
-    def on_ledger(self,data):
+    def on_ledger(self, data):
         print('on_ledger')
 
 
-    def on_open(self):
+    def on_open(self, connection):
         print("Connection is open")
 
         print("Get server info")
@@ -31,7 +30,6 @@ class Example(Client):
 
         print("Subscribe to ledger transactions")
         self.subscribe_transactions()
-
 
     def on_close(self):
         print("on_close")

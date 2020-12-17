@@ -61,7 +61,7 @@ You can also write your own class for the connection, if you want to handle the 
         def __init__(self):
             super(self.__class__, self).__init__(
                 log_level=logging.ERROR,
-                server="wss://rippled.xrptipbot.com"
+                server="wss://xrpl.ws"
             )
 
             # connect to the websocket
@@ -73,7 +73,7 @@ You can also write your own class for the connection, if you want to handle the 
         def on_ledger(self,data):
             print('on_ledger')
 
-        def on_open(self):
+        def on_open(self, connection):
             print("Connection is open")
 
             print("Subscribe to ledger transactions")

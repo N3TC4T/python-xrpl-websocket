@@ -211,7 +211,7 @@ class Client(Thread):
         if self.reconnect_required.is_set():
             self.log.info("Connection reconnected.")
 
-        self._callback('on_open')
+        self._callback('on_open', self)
 
     def _on_error(self, error):
         self.log.info("Connection Error - %s", error)
