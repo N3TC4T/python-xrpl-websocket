@@ -330,7 +330,7 @@ class Client(Thread):
                 if(resp['id'] == _payload['id']):
                     return resp
             else:
-                raise TimeoutError('timeout on sending payload!')
+                raise TimeoutError('timeout on sending payload!', _payload)
 
     def _connection_timed_out(self):
         """
